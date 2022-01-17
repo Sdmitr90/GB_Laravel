@@ -13,10 +13,67 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Route::get('/first', function () {
     return 'This is the first page, thanks for the lesson!';
 });
+
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])
+    ->name("home::pages");
+
+Route::get('/page', [\App\Http\Controllers\HomeController::class, 'index'])
+    ->name("home::pages");
+
+Route::get('/page/title/news', [\App\Http\Controllers\NewsController::class, 'index'])
+    ->name("news::catalog");
+
+Route::get('/page/title/news/card/{id}', [\App\Http\Controllers\NewsController::class, 'card'])
+    ->where('id', '[0-9]+')
+    ->name("news::card");
+
+Auth::routes();
+
+//Route::get('/page/title/catalog', [\App\Http\Controllers\CatalogController::class, 'index'])->name("catalog::index");
+//Route::get('/page/title/catalog/create', [\App\Http\Controllers\CatalogController::class, 'create'])->name("catalog::create");
+//Route::get('/page/title/catalog/update', [\App\Http\Controllers\CatalogController::class, 'update'])->name("catalog::update");
+//Route::get('/page/title/catalog/delete', [\App\Http\Controllers\CatalogController::class, 'delete'])->name("catalog::delete");
+
+Route::group([
+    'prefix' => '/page/title/catalog',
+    'as' => 'catalog::'
+], function () {
+    Route::get('', [\App\Http\Controllers\CatalogController::class, 'index'])
+        ->name("index");
+
+    Route::get('create', [\App\Http\Controllers\CatalogController::class, 'create'])
+        ->name("create");
+
+    Route::get('update', [\App\Http\Controllers\CatalogController::class, 'update'])
+        ->name("update");
+
+    Route::get('delete', [\App\Http\Controllers\CatalogController::class, 'delete'])
+        ->name("delete");
+});
+
+Route::group([
+    'prefix' => '/page/title/catalog/{id}',
+    'as' => 'catalog::'
+], function () {
+    Route::get('', [\App\Http\Controllers\CatalogController::class, 'index'])
+        ->name("card");
+
+    Route::get('create', [\App\Http\Controllers\CatalogController::class, 'create'])
+        ->name("create");
+
+    Route::get('update', [\App\Http\Controllers\CatalogController::class, 'update'])
+        ->name("update");
+
+    Route::get('delete', [\App\Http\Controllers\CatalogController::class, 'delete'])
+        ->name("delete");
+});
+
+Route::get('/page/title/{item}', [\App\Http\Controllers\HomeController::class, 'titles'])
+    ->name("home::titles");
