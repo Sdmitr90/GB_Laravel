@@ -2,36 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\News;
 
 class NewsController extends Controller
 {
-    private $news = [
-        1 => [
-            'title' => 'news 1'
-        ],
-        2 => [
-            'title' => 'news 2'
-        ]
-    ];
-
     public function index()
     {
-        $response = '';
-        foreach ($this->news as $id => $item) {
-            $url = route('news::card', ['id' => $id]);
-            $response .= "<div>
-                <a href='{$url}'>
-                        {$item['title']}
-                </a>
-                  </div>";
-        }
-        return $response;
+        $news = (new News())->getNews();
+        return view('mysite.news.news', ['news' => $news]);
     }
 
-    public function card($id)
+    public function category($id)
     {
-        $news = $this->news[$id];
-        return $news['title'];
+        $news = (new News())->getNews();
+        return view('mysite.news.category.category', ['news' => $news, 'id' => $id]);
+    }
+
+    public function card($id, $cardId)
+    {
+        $news = (new News())->getNews();
+        return view('mysite.news.category.card.card', ['news' => $news, 'id' => $id, 'cardId' => $cardId]);
     }
 }
