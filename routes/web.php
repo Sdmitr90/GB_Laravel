@@ -24,13 +24,14 @@ Route::get('/first', function () {
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])
     ->name("home::pages");
 
-Route::get('/page', [\App\Http\Controllers\HomeController::class, 'index'])
-    ->name("home::pages");
-
-Route::get('/page/title/news', [\App\Http\Controllers\NewsController::class, 'index'])
+Route::get('news', [\App\Http\Controllers\NewsController::class, 'index'])
     ->name("news::catalog");
 
-Route::get('/page/title/news/card/{id}', [\App\Http\Controllers\NewsController::class, 'card'])
+Route::get('news/category/{id}', [\App\Http\Controllers\NewsController::class, 'category'])
+    ->where('id', '[0-9]+')
+    ->name("news::category");
+
+Route::get('news/category/{id}/card/{cardId}', [\App\Http\Controllers\NewsController::class, 'card'])
     ->where('id', '[0-9]+')
     ->name("news::card");
 
@@ -42,7 +43,7 @@ Auth::routes();
 //Route::get('/page/title/catalog/delete', [\App\Http\Controllers\CatalogController::class, 'delete'])->name("catalog::delete");
 
 Route::group([
-    'prefix' => '/page/title/catalog',
+    'prefix' => 'catalog',
     'as' => 'catalog::'
 ], function () {
     Route::get('', [\App\Http\Controllers\CatalogController::class, 'index'])
@@ -59,7 +60,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => '/page/title/catalog/{id}',
+    'prefix' => 'catalog/{id}',
     'as' => 'catalog::'
 ], function () {
     Route::get('', [\App\Http\Controllers\CatalogController::class, 'index'])
@@ -75,5 +76,5 @@ Route::group([
         ->name("delete");
 });
 
-Route::get('/page/title/{item}', [\App\Http\Controllers\HomeController::class, 'titles'])
+Route::get('/{item}', [\App\Http\Controllers\HomeController::class, 'titles'])
     ->name("home::titles");
