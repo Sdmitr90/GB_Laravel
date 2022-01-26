@@ -35,7 +35,35 @@ Route::get('news/category/{id}/card/{cardId}', [\App\Http\Controllers\NewsContro
     ->where('id', '[0-9]+')
     ->name("news::card");
 
+Route::get('about', [\App\Http\Controllers\AboutController::class, 'index'])
+    ->where('id', '[0-9]+')
+    ->name("about::index");
+
+Route::post('about/create', [\App\Http\Controllers\AboutController::class, 'create'])
+    ->where('id', '[0-9]+')
+    ->name("about::create");
+
 Auth::routes();
+
+Route::group([
+    'prefix' => '/admin/news',
+    'as' => 'admin::news::'
+], function () {
+    Route::get('', [\App\Http\Controllers\Admin\NewsController::class, 'index'])
+        ->name("index");
+
+    Route::post('create', [\App\Http\Controllers\Admin\NewsController::class, 'create'])
+        ->name("create");
+
+    Route::get('new', [\App\Http\Controllers\Admin\NewsController::class, 'new'])
+        ->name("new");
+
+    Route::get('update', [\App\Http\Controllers\Admin\NewsController::class, 'update'])
+        ->name("update");
+
+    Route::get('delete', [\App\Http\Controllers\Admin\NewsController::class, 'delete'])
+        ->name("delete");
+});
 
 //Route::get('/page/title/catalog', [\App\Http\Controllers\CatalogController::class, 'index'])->name("catalog::index");
 //Route::get('/page/title/catalog/create', [\App\Http\Controllers\CatalogController::class, 'create'])->name("catalog::create");
