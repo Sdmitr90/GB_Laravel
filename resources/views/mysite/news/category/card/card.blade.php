@@ -1,13 +1,19 @@
 @extends('mysite.index')
 
 @section('title')
-    Категория {{$id}} Новость {{$cardId}}
+    Категория {{ $id }}  Новость {{ $cardId }}
 @endsection
 
 @section('content')
+    @forelse($news as $item)
     <div>
-        <h4>{{$news[$id][$cardId][0]}}</h4>
-        <p>{!!$news[$id][$cardId][1]!!}</p>
-
+        @if($item->news_id == $cardId)
+        <h4>{{$item->news}}</h4>
+        <p>{!!$item->news_description!!}</p>
+        @endif
+        @empty
+            <p>{!!'Dummy'!!}</p>
     </div>
+    @endforelse
 @endsection
+

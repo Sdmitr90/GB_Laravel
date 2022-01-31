@@ -6,10 +6,10 @@
 
 @section('content')
     <div>
-        @forelse($news[$id] as $cardId => $news)
-           @if(is_array($news)) {{-- Знаю, что Г.Код, до начала работы с базами данных, нет желания заморачиваться--}}
+        @forelse($news as $item)
+           @if($item->categories_id == $id)
                 <div>
-                    <a href='{{route('news::category', ['id' => $id])}}/card/{{$cardId}}'> {!!$news[0]!!} </a>
+                    <a href='{{route('news::category', ['id' => $id])}}/card/{!!$item->news_id!!}'> {!!$item->news!!} </a>
                 </div>
             @endif
         @empty
@@ -17,3 +17,4 @@
         @endforelse
     </div>
 @endsection
+

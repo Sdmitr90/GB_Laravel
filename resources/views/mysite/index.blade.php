@@ -18,11 +18,9 @@
 
     </div>
     <div class="content">
-        CONTENT
         @yield('content')
     </div>
     <div class="footer">
-        FOOTER
     </div>
 </div>
 </body>

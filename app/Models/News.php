@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Support\Facades\DB;
 
 class News
 {
@@ -24,4 +25,10 @@ class News
     {
         return $this->news;
     }
+
+    public function getNewsDB(){
+
+        return DB::select('SELECT n.id as news_id, n.news_name as news, n.news_description as news_description, c.id as categories_id, c.category_name FROM news as n join categories as c on c.id = n.categories_id');
+    }
+
 }

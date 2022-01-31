@@ -14,13 +14,15 @@ class NewsController extends Controller
 
     public function category($id)
     {
-        $news = (new News())->getNews();
+//        $news = (new News())->getNews();
+//        return view('mysite.news.category.category', ['news' => $news, 'id' => $id]);
+        $news = (new News())->getNewsDB();
         return view('mysite.news.category.category', ['news' => $news, 'id' => $id]);
     }
 
     public function card($id, $cardId)
     {
-        $news = (new News())->getNews();
+        $news = (new News())->getNewsDB();
         return view('mysite.news.category.card.card', ['news' => $news, 'id' => $id, 'cardId' => $cardId]);
     }
 }
