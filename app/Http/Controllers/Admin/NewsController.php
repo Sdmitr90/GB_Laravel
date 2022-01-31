@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\News;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -9,30 +10,41 @@ class NewsController extends Controller
 {
     public function index()
     {
-        dd('Проверка');
+        $news = News::getNews();
+        return view('admin.news.index')->with(['news' => $news]);
     }
 
     public function create(Request $request)
     {
-        $title = $request->input('title');
-        $description = $request->input('description');
-        //сохраняем данные в базу
-        return redirect()->route('admin::news::new');
+
+        if ($request->input('news_id')) {
+            $news = News::find($request->input('news_id'));
+        } else {
+            $news = new News();
+        }
+        $news->categories_id = $request->input('category');
+        $news->news_name = $request->input('title');
+        $news->news_description = $request->input('content');
+
+        $news->save();
+
+        return redirect()->route('admin::news::index');
     }
 
-    public function new()
+    public function update($id)
+    {
+        $news = News::getNewsById($id);
+        return view('admin.news.update')->with(['news' => $news]);
+    }
+
+    public function new(Request $request)
     {
         return view('admin.news.create');
     }
 
-
-    public function update()
+    public function delete($id)
     {
-
-    }
-
-    public function delete()
-    {
-
+        News::find($id)->delete();
+        return redirect()->route('admin::news::index');
     }
 }
