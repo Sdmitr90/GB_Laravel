@@ -41,7 +41,10 @@ Route::get('/news/card/{news}', [\App\Http\Controllers\NewsController::class, 'c
 
 Route::get('/category/{category_id}', [\App\Http\Controllers\NewsController::class, 'list'])
     ->where('category_id', '[0-9]+')
-    ->name("news::list");
+    ->name("category::list");
+
+Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index'])
+    ->name("categories::index");
 
 Auth::routes();
 
@@ -62,6 +65,26 @@ Route::group([
         ->name("update");
 
     Route::get('delete/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'delete'])
+        ->name("delete");
+});
+
+Route::group([
+    'prefix' => '/admin/categories',
+    'as' => 'admin::categories::'
+], function () {
+    Route::get('', [\App\Http\Controllers\Admin\CategoryController::class, 'index'])
+        ->name("index");
+
+    Route::post('create', [\App\Http\Controllers\Admin\CategoryController::class, 'create'])
+        ->name("create");
+
+    Route::get('new', [\App\Http\Controllers\Admin\CategoryController::class, 'new'])
+        ->name("new");
+
+    Route::get('update/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'update'])
+        ->name("update");
+
+    Route::get('delete/{id}', [\App\Http\Controllers\Admin\CategoryController::class, 'delete'])
         ->name("delete");
 });
 
