@@ -2,33 +2,36 @@
 
 @section('title')
     @parent
-    Создание новости
+    Создание Категории
 @endsection
 
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <div class="row justify-content-center">
             <div class="col-md-6">
-                {!! Form::open(['route' => 'admin::news::create']) !!}
+                {!! Form::open(['route' => 'admin::categories::create']) !!}
                 <label class="form-label">
-                    id Новости (необязательно)
+                    id Категории (необязательно)
                 </label>
                 <div class="form-group">
                     {!! Form::text('id', '', ['class' => 'form-control']) !!}
                 </div>
                 <label class="form-label">
-                    Категория id
-                </label>
-                <div class="form-group">
-                    {!! Form::text('category', '', ['class' => 'form-control']) !!}
-                </div>
-                <label class="form-label">
-                    Заголовок Новости
+                    {{__('label.title')}}
                 </label>
                 <div class="form-group">
                     {!! Form::text('title', '', ['class' => 'form-control']) !!}
                 </div>
                 <label class="form-label">
-                    Содержимое
+                    {{__('label.description')}}
                 </label>
                 <div class="form-group">
                     {!! Form::textarea('content', '', ['class' => 'form-control']) !!}
