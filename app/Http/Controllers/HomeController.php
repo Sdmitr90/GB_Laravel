@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Home;
+use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-
-
-    public function index()
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
     {
-        $home = (new Home())->index();
-        return view('mysite.menu', ['pages' => $home]);
+        $this->middleware('auth');
     }
 
-    public function titles($item)
+    /**
+     * Show the application dashboard.
+     *
+     * @return Renderable
+     */
+    public function index()
     {
-                return $item;
+        return view('home');
     }
 }
