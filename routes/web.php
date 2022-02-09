@@ -46,8 +46,6 @@ Route::get('/category/{category_id}', [\App\Http\Controllers\NewsController::cla
 Route::get('/categories', [\App\Http\Controllers\CategoryController::class, 'index'])
     ->name("categories::index");
 
-Auth::routes();
-
 Route::group([
     'prefix' => '/admin/news',
     'as' => 'admin::news::'
@@ -66,6 +64,20 @@ Route::group([
 
     Route::get('delete/{id}', [\App\Http\Controllers\Admin\NewsController::class, 'delete'])
         ->name("delete");
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group([
+    'as' => 'admin.', // имя маршрута, например admin.index
+    'prefix' => 'admin', // префикс маршрута, например admin/index
+    'namespace' => 'Admin', // пространство имен контроллера
+    'middleware' => ['auth', 'admin'] // один или несколько посредников
+], function () {
+    // просмотр и редактирование пользователей
+    Route::resource('user', '\App\Http\Controllers\Admin\UserController');
 });
 
 Route::group([
@@ -131,3 +143,23 @@ Route::get('/db', [\App\Http\Controllers\DbController::class, 'index']);
 
 Route::get('/{item}', [\App\Http\Controllers\HomeController::class, 'titles'])
     ->name("home::titles");
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
