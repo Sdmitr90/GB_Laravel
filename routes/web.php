@@ -78,7 +78,21 @@ Route::group([
 ], function () {
     // просмотр и редактирование пользователей
     Route::resource('user', '\App\Http\Controllers\Admin\UserController');
+    //Parser
+    Route::get("parser", [App\Http\Controllers\Admin\ParserController::class, 'index'])
+        ->name('parser');
 });
+
+Route::group([
+    'prefix' => 'social',
+    'as' => 'social::',
+], function () {
+    Route::get('/login', [App\Http\Controllers\SocialController::class, 'loginVk'])
+        ->name('login-vk');
+    Route::get('/response', [App\Http\Controllers\SocialController::class, 'responseVk'])
+        ->name('response-vk');
+});
+
 
 Route::group([
     'prefix' => '/admin/categories',
@@ -143,23 +157,3 @@ Route::get('/db', [\App\Http\Controllers\DbController::class, 'index']);
 
 Route::get('/{item}', [\App\Http\Controllers\HomeController::class, 'titles'])
     ->name("home::titles");
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -16073,7 +16073,77 @@
      
 }
 
-        namespace Facade\Ignition\Facades { 
+        namespace Orchestra\Parser\Xml { 
+            /**
+     * 
+     *
+     */ 
+        class Facade {
+                    /**
+         * Provides SimpleXMLElement to document.
+         *
+         * @return \Laravie\Parser\Document 
+         * @static 
+         */ 
+        public static function via($xml)
+        {
+                        /** @var \Orchestra\Parser\Xml\Reader $instance */
+                        return $instance->via($xml);
+        }
+                    /**
+         * Extract content from string.
+         *
+         * @param string $content
+         * @return \Laravie\Parser\Document 
+         * @static 
+         */ 
+        public static function extract($content)
+        {            //Method inherited from \Laravie\Parser\Xml\Reader         
+                        /** @var \Orchestra\Parser\Xml\Reader $instance */
+                        return $instance->extract($content);
+        }
+                    /**
+         * Load content from file.
+         *
+         * @param string $filename
+         * @return \Laravie\Parser\Document 
+         * @static 
+         */ 
+        public static function load($filename)
+        {            //Method inherited from \Laravie\Parser\Xml\Reader         
+                        /** @var \Orchestra\Parser\Xml\Reader $instance */
+                        return $instance->load($filename);
+        }
+                    /**
+         * Load content from local file.
+         *
+         * @param string $filename
+         * @return \Laravie\Parser\Document 
+         * @static 
+         */ 
+        public static function local($filename)
+        {            //Method inherited from \Laravie\Parser\Xml\Reader         
+                        /** @var \Orchestra\Parser\Xml\Reader $instance */
+                        return $instance->local($filename);
+        }
+                    /**
+         * Load content from remote file.
+         *
+         * @param string $filename
+         * @return \Laravie\Parser\Document 
+         * @static 
+         */ 
+        public static function remote($filename)
+        {            //Method inherited from \Laravie\Parser\Xml\Reader         
+                        /** @var \Orchestra\Parser\Xml\Reader $instance */
+                        return $instance->remote($filename);
+        }
+         
+    }
+     
+}
+
+    namespace Facade\Ignition\Facades { 
             /**
      * Class Flare.
      *
@@ -21085,6 +21155,7 @@ namespace  {
             class URL extends \Illuminate\Support\Facades\URL {}
             class Validator extends \Illuminate\Support\Facades\Validator {}
             class View extends \Illuminate\Support\Facades\View {}
+            class XmlParser extends \Orchestra\Parser\Xml\Facade {}
             class Flare extends \Facade\Ignition\Facades\Flare {}
             class Form extends \Collective\Html\FormFacade {}
             class Html extends \Collective\Html\HtmlFacade {}
