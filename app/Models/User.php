@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'created_at',
     ];
 
     /**
@@ -41,4 +43,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUsers()
+    {
+        return static::query()
+            ->get();
+    }
+
+    public static function getUsersById(int $Id)
+    {
+        return static::query()
+            ->where('id', $Id)
+            ->get();
+    }
 }
